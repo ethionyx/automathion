@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProjectState, UpdateProjectPayload, Flow, Tools, ToolValues, Credential, Project } from '../shared/types';
-import { updateProjectAttributeLocally } from '../store/slice';
+import { updateProjectAttributeLocally } from '../entitles/projects/projectSlice';
 
 export const useUpdateProject = () => {
   const dispatch = useDispatch();
 
   // Selector to get project state
   const state: ProjectState = useSelector((state: { project: ProjectState }) => state.project);
-
+ 
   // Utility to update any project attribute
   const updateProjectAttribute = useCallback(
     <T extends keyof Project>({ projectId, attribute, value }: { projectId: number; attribute: T; value: Project[T] }) => {
