@@ -79,3 +79,11 @@ export const initialState: ProjectState = {
   flows: [],
   toolValues: [],
 };
+
+export interface Notification {
+  id: number;              // Unique ID for the notification
+  message: string;         // The main content of the notification
+  icon: React.ReactNode;   // Icon displayed alongside the notification
+  title: string;           // Title for the notification
+  timestamp: string;         // When the notification was created (use Date for type safety)
+}

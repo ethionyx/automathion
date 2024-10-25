@@ -1,0 +1,53 @@
+header {
+  background-color: #102A43; /* Consistent with your header background color */
+  padding: 0 20px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer, deeper shadow for a modern effect */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+header:hover {
+  background-color: #0B1D35; /* Darker shade on hover for visual depth */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+}
+
+ul li a {
+  color: #fff;
+  font-weight: 500; /* Slightly bolder font */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+ul li a:hover {
+  text-decoration: underline;
+  color: #1FB6FF; /* Hover color for interactive links */
+}
+
+header .MuiIconButton-root {
+  color: #fff;
+  transition: transform 0.3s ease, color 0.3s ease; /* Smooth hover effect for icons */
+}
+
+header .MuiIconButton-root:hover {
+  transform: scale(1.1); /* Slight zoom on hover for interactivity */
+  color: #1FB6FF; /* Color change on hover */
+}
+
+header .MuiBadge-root .MuiBadge-badge {
+  background-color: #FF4081; /* Custom badge color */
+}
+
+button {
+  background-color: #1FB6FF;
+  color: #fff;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Button hover effects */
+}
+
+button:hover {
+  background-color: #1D9BF0;
+  transform: scale(1.05); /* Button hover scale for interactivity */
+}

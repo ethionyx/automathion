@@ -1,8 +1,11 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  margin: 0;
+  padding: 0;
+  background-color: #F5F5F5;
   text-align: center;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .logo {
@@ -39,4 +42,130 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Header styling */
+header {
+  width: 100%;
+  height: 70px; /* Fixed height for Header */
+  padding: 10px 20px;
+  background-color: #0F265D; /* Primary blue color */
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; /* For the dropdown to work properly */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  z-index: 10; /* Ensure header stays above other content */
+}
+
+/* Logo and title styling */
+header .logo-title-container {
+  display: flex;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Icon section */
+header .icon-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative; /* For dropdown positioning */
+  padding-right: 35px;
+}
+
+/* Profile dropdown styling */
+.profile-dropdown {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 70px; /* Dropdown below header */
+  right: 0;
+  background-color: white;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 100;
+  width: 200px;
+}
+
+.profile-dropdown a {
+  display: block;
+  padding: 10px;
+  color: #0F265D;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-dropdown a:hover {
+  background-color: #f9f9f9;
+}
+
+/* Show dropdown when profile is clicked */
+.show-dropdown {
+  display: block;
+}
+
+/* Notification dropdown styling */
+.notification-dropdown {
+  display: none;
+  position: absolute;
+  top: 70px;
+  right: 60px; /* Adjusted to not overlap with profile */
+  background-color: white;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 100;
+  width: 250px;
+}
+
+.notification-dropdown .notification-item {
+  padding: 10px;
+  color: #0F265D;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.notification-dropdown .notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-dropdown .notification-item:hover {
+  background-color: #f9f9f9;
+}
+
+/* Show notification dropdown */
+.show-notification-dropdown {
+  display: block;
+}
+
+/* App.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the footer is at the bottom */
+  overflow: hidden; /* Prevent any overflow that may cause a scrollbar */
+}
+
+.content-container {
+  flex: 1; /* Allow it to grow and fill space */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+  padding: 20px; /* Padding for better spacing */
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column; /* Stack items in header on smaller screens */
+    align-items: flex-start; /* Align items to the start */
+  }
+  .icon-section {
+    gap: 10px; /* Reduce space between icons */
+  }
 }
