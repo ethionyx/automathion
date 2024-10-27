@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Box,
     List,
@@ -46,7 +46,7 @@ const OrangeSwitch = styled(Switch)(({ theme }) => ({
 const Sidebar = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const [isDarkTheme, setIsDarkTheme] = React.useState(false); // State for theme
+   
     const [projects] = React.useState<Project[]>([
         {
             id: 1, name: 'Project 1',
@@ -85,7 +85,15 @@ const Sidebar = () => {
             status: 'active'
         },
     ]);
+    const [toggleState, setToggleState] = React.useState<{ isDarkTheme: Boolean, selectedTeam: string | null }>({ isDarkTheme: false, selectedTeam: null });
 
+    useEffect(() => {
+        // Load selected team from localStorage on component mount
+        const storedTeam = localStorage.getItem('selectedTeam');
+        if (storedTeam) {
+            setToggleState((prev) => ({ ...prev, selectedTeam: storedTeam }));
+        }
+    }, []);
     const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -94,9 +102,7 @@ const Sidebar = () => {
         setAnchorEl(null);
     };
 
-    const handleSwitchChange = () => {
-        setIsDarkTheme((prev) => !prev); // Toggle the theme state
-    };
+  
 
     const handleSelect = (option: string) => {
         console.log(`${option} selected`);
@@ -110,6 +116,26 @@ const Sidebar = () => {
         console.log('Add New Project clicked');
     };
 
+    const handleToggle = (type: 'theme' | 'team', value: string | boolean) => {
+        setToggleState((prev) => {
+            const newState = { ...prev };
+            if (type === 'theme') {
+                newState.isDarkTheme = !prev.isDarkTheme; // Toggle theme
+            } else {
+                // Toggle team
+                newState.selectedTeam = newState.selectedTeam === value ? null : value;
+                localStorage.setItem('selectedTeam', newState.selectedTeam || '');
+            }
+            return newState;
+        });
+    };
+
+    // Apply theme based on toggleState
+    useEffect(() => {
+        document.body.style.backgroundColor = toggleState.isDarkTheme ? '#121212' : '#fafafa';
+        document.body.style.color = toggleState.isDarkTheme ? '#ffffff' : '#000000';
+    }, [toggleState.isDarkTheme]);
+    
     return (
         <Box
             sx={{
@@ -295,17 +321,18 @@ const Sidebar = () => {
                     }}
                 >
                     {/* Light Theme Icon */}
-                    {isDarkTheme ? (
-                        <DarkModeIcon sx={{ color: '#ff6600', fontSize: 24, ml: 1 }} /> // Add margin left to the icon
+                    {toggleState.isDarkTheme ? (
+                        <DarkModeIcon sx={{ color: '#ff6600', fontSize: 24, ml: 1 }} />
                     ) : (
-                        <WbSunnyIcon sx={{ color: '#ff6600', fontSize: 24, ml: 1 }} /> // Add margin left to the icon
+                        <WbSunnyIcon sx={{ color: '#ff6600', fontSize: 24, ml: 1 }} />
                     )}
-
                     <Typography variant="body2" sx={{ color: '#666', fontWeight: 'bold', fontSize: '1.1rem', mx: 1 }}>
                         Theme
                     </Typography>
-
-                    <OrangeSwitch checked={isDarkTheme} onChange={handleSwitchChange} />
+                    <OrangeSwitch
+                        checked={toggleState.isDarkTheme}
+                        onChange={() => handleToggle('theme', toggleState.isDarkTheme)}
+                    />
                 </Box>
 
                 {/* User Section: Icon and 3-Dot Menu */}

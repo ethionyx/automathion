@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Grid, CircularProgress, IconButton, Box } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import "./App.css";
 import Footer from "./layout/Footer";
 import Header from "./layout/header/header";
 import SignUp from "./shared/account/SignUp";
@@ -21,43 +20,40 @@ const App = () => {
     setIsLoading(false);
   }, []);
 
-  if (isLoading) {
-    return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-        <CircularProgress />
-      </div>
-    );
-  }
-
   const toggleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
   };
 
+  if (isLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
-    <div className="app-container" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Router>
-        <Header />
+        <Header toggleDrawer={toggleDrawer} />
 
         <Box sx={{ display: 'flex', height: '100vh', bgcolor: '#ffffff' }}>
-          <Sidebar
-          />
+          <Sidebar isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
           <Box sx={{ flexGrow: 1, p: 2 }}>
             <Routes>
               <Route
                 path="/"
-                element={true ? <AutomationHome /> : <Navigate to="/login" />}
+                element={isAuthenticated ? <AutomationHome /> : <Navigate to="/login" />}
               />
-
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
             </Routes>
           </Box>
         </Box>
 
-
         <Footer />
       </Router>
-    </div>
+    </Box>
   );
 };
 
